@@ -1,29 +1,5 @@
 import { open } from 'node:fs/promises';
-
-const preparePrettyDiff = (diffObj) => {
-  const preatyDiffLines = [];
-  preatyDiffLines.push('{');
-  Object.entries(diffObj).forEach(([key, line]) => {
-    if (line.isSimilar) {
-      preatyDiffLines.push(`  ${key}: ${line.value}`);
-      return;
-    }
-    if (!line.isSimilar && line.value2 === null) {
-      preatyDiffLines.push(`- ${key}: ${line.value}`);
-      return;
-    }
-    if (!line.isSimilar && line.value === null) {
-      preatyDiffLines.push(`+ ${key}: ${line.value2}`);
-      return;
-    }
-    if (!line.isSimilar && line.value2 !== null) {
-      preatyDiffLines.push(`- ${key}: ${line.value}`);
-      preatyDiffLines.push(`+ ${key}: ${line.value2}`);
-    }
-  });
-  preatyDiffLines.push('}');
-  return preatyDiffLines.join('\n');
-};
+import preparePrettyDiff from './prettifier/preparePreattyDiff.js';
 
 const parseFile = async (filepath) => {
   let filehandle;
