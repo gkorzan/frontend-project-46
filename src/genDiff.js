@@ -1,19 +1,5 @@
-import { open } from 'node:fs/promises';
+import parseFile from './fileParser/parseFile.js';
 import preparePrettyDiff from './prettifier/preparePreattyDiff.js';
-
-const parseFile = async (filepath) => {
-  let filehandle;
-  try {
-    filehandle = await open(filepath, 'r');
-    const fileData = await filehandle.readFile();
-    return JSON.parse(fileData);
-  } catch (e) {
-    console.error(e);
-    return null;
-  } finally {
-    await filehandle?.close();
-  }
-};
 
 const genDiff = async (filepath1, filepath2) => {
   const fileData1 = await parseFile(filepath1);
