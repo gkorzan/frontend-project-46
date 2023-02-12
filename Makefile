@@ -1,4 +1,4 @@
-.PHONY: install publish lint link
+.PHONY: install publish lint link test
 install: 
 	npm ci
 
@@ -10,3 +10,9 @@ link:
 
 lint:
 	npx eslint .
+
+test:
+	npm test
+
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
